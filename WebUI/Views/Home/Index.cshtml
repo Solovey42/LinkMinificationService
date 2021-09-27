@@ -1,8 +1,31 @@
-﻿@{
+﻿@model IndexViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
-
+<head>
+<link href="~/css/errorStyle.css" rel="stylesheet" />
+</head>
+<body>
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h2>Сервис для минификации ссылок</h2>
+    <form method="post" asp-controller="Home" asp-action="Index">
+        <span asp-validation-for="LongAddress"></span>
+        <input asp-for="LongAddress" type="text" id="input" class="form-control inputError" placeholder="Введите ссылку" />
+        <input asp-route-longAddress= class="btn btn-outline-primary" type="submit" value="Получить короткую ссылку">
+    </form>
+    <h2>Ссылки</h2>
+    <table class="table">
+        <tr>
+            <th>Название</th>
+            <th>Размер</th>
+            @foreach (var link in Model.Links)
+            {
+        <tr>
+                <td>@link.LongAddress</td>
+                <td>@link.ShortAddress</td>
+        </tr>
+            }
+    </table>
 </div>
+</body>
